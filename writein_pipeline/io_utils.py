@@ -1,40 +1,74 @@
+# writein_pipeline/io_utils.py
+"""
+I/O utilities for loading, saving, and updating the dataset.
+Ensures schema safety by auto-adding any missing columns.
+"""
 
-"""
-IO: read/write the master CSV and merge/update rows deterministically.
-"""
 import pandas as pd
-from typing import Optional
-from .config import DATASET_CSV_PATH, COLUMNS, StateRecord
+from writein_pipeline.config import DATASET_CSV_PATH, COLUMNS, StateRecord
 
-def load_dataset(path: Optional[str] = None) -> pd.DataFrame:
-    csv_path = path or DATASET_CSV_PATH
+
+def _ensure_schema(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Guarantee all canonical columns exist in the DataFrame.
+    If missing, add them with empty string defaults.
+    """
+    for col in COLUMNS:
+        if col not in df.columns:
+            df[col] = ""
+    # Reorder columns to canonical order
+    return df[COLUMNS]
+
+
+def load_dataset(path: str = None) -> pd.DataFrame:
+    """
+    Load the master CSV into a DataFrame.
+    Auto-creates the file if it doesn't exist yet.
+    """
+    path = path or DATASET_CSV_PATH
     try:
-        df = pd.read_csv(csv_path)
+        df = pd.read_csv(path, dtype=str).fillna("")
     except FileNotFoundError:
-        df = pd.DataFrame({c: [] for c in COLUMNS})
-    return df
+        df = pd.DataFrame(columns=COLUMNS)
+    return _ensure_schema(df)
+
+
+def save_dataset(df: pd.DataFrame, path: str = None) -> str:
+    """
+    Save the dataset back to CSV.
+    """
+    path = path or DATASET_CSV_PATH
+    df = _ensure_schema(df)
+    df.to_csv(path, index=False)
+    return path
+
 
 def upsert_record(df: pd.DataFrame, rec: StateRecord) -> pd.DataFrame:
-    if df.empty:
-        df = pd.DataFrame(columns=COLUMNS)
-    mask = df['State'].str.lower() == rec.state.lower() if 'State' in df.columns else pd.Series([False])
-    row = {
-        "State": rec.state,
-        "Write-in Law": rec.write_in_law,
-        "Deadline": rec.deadline,
-        "Form Number / Name": rec.form_name,
-        "Contact (URL/Phone)": rec.contact,
-    }
-    if mask.any():
-        idx = df.index[mask][0]
-        for k, v in row.items():
-            if v and (pd.isna(df.at[idx, k]) or str(df.at[idx, k]).strip() == "" or v != df.at[idx, k]):
-                df.at[idx, k] = v
-    else:
-        df = pd.concat([df, pd.DataFrame([row])], ignore_index=True)
-    return df
+    """
+    Insert or update the core fields for a given state.
+    Matching is case-insensitive on 'State'.
+    """
+    df = _ensure_schema(df)
 
-def save_dataset(df: pd.DataFrame, path: Optional[str] = None) -> str:
-    csv_path = path or DATASET_CSV_PATH
-    df.to_csv(csv_path, index=False)
-    return csv_path
+    mask = df["State"].str.lower() == rec.state.lower()
+    if mask.any():
+        # Update existing row
+        idx = df[mask].index[0]
+        df.at[idx, "State"] = rec.state
+        df.at[idx, "Write-in Law"] = rec.write_in_law
+        df.at[idx, "Deadline"] = rec.deadline
+        df.at[idx, "Form Number / Name"] = rec.form_name
+        df.at[idx, "Contact (URL/Phone)"] = rec.contact
+    else:
+        # Append new row
+        new_row = {col: "" for col in COLUMNS}
+        new_row.update({
+            "State": rec.state,
+            "Write-in Law": rec.write_in_law,
+            "Deadline": rec.deadline,
+            "Form Number / Name": rec.form_name,
+            "Contact (URL/Phone)": rec.contact,
+        })
+        df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+
+    return _ensure_schema(df)
