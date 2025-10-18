@@ -24,6 +24,11 @@ It combines **law**, **data**, and **narrative** into one coherent project plan.
 ├── assets/
 │   └── states/                    # PDFs, forms, screenshots per state
 ├── writein_pipeline/              # Python/PowerShell tools for processing data
+├── website/                       # Next.js manifesto website (built with v0.app)
+│   ├── app/                       # Next.js app directory
+│   ├── components/                # React components
+│   └── package.json               # Website dependencies
+├── package.json                   # Root package.json for unified development
 └── .github/
     └── workflows/                 # CI checks for schema & dossiers
 ```
@@ -91,8 +96,32 @@ It is the ultimate startup — the product is a new political consciousness.
 
 ## 🚀 Getting Started (Contributors)
 
-Clone the repo and scaffold the state dossiers:
+### Quick Setup
 
+Install all dependencies and start development:
+
+```bash
+# Install all dependencies (Node.js, Python, and website)
+npm run setup
+
+# Start both the website and data pipeline in development mode
+npm run dev
+```
+
+### Individual Components
+
+**Data Pipeline:**
+```bash
+cd writein_pipeline
+python main.py
+```
+
+**Website:**
+```bash
+npm run dev:website
+```
+
+**Scaffold State Dossiers:**
 ```powershell
 # Windows
 powershell -ExecutionPolicy Bypass -File .\scaffold_writein_repo.ps1
@@ -103,19 +132,34 @@ powershell -ExecutionPolicy Bypass -File .\scaffold_writein_repo.ps1
 ./scripts/scaffold_writein_repo.sh
 ```
 
-Run the linter locally:
-
+**Run Linter:**
 ```bash
 python writein_pipeline/validate_csv.py
 ```
 
 ---
 
+## 🌐 Website Component
+
+The repository now includes a complete Next.js website built with [v0.app](https://v0.app) that serves as the public face of the Write-In Revolution movement. The website features:
+
+* **Hero Section** - Movement messaging and call-to-action
+* **Complete Manifesto** - Full manifesto content with detailed sections
+* **Platform Information** - Core platform and policy positions  
+* **About Section** - Movement background and philosophy
+* **Responsive Design** - Built with Tailwind CSS and Radix UI components
+
+**Access the website:**
+- Development: `npm run dev:website` (runs on http://localhost:3000)
+- Production build: `npm run build:website`
+
 ## 🔗 Open Files
 
 * [📂 CSV Dataset](./50_state_write_in_master.csv)
 * [📊 Excel Dataset](./50_state_write_in_master.xlsx)
 * [🗃️ State Dossiers](./data/states/)
+* [🌐 Website Components](./website/components/)
+* [📄 Manifesto Page](./website/app/manifesto/page.tsx)
 * [⚙️ GitHub Actions Workflow](.github/workflows/lint-dossiers.yml)
 
 ---

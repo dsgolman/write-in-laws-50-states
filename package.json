@@ -1,0 +1,39 @@
+{
+  "name": "write-in-laws-50-states",
+  "version": "1.0.0",
+  "description": "Write-in candidate data pipeline and manifesto website for the 50-state movement",
+  "private": true,
+  "workspaces": [
+    "website"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:website\" \"npm run dev:pipeline\"",
+    "dev:website": "cd website && npm run dev",
+    "dev:pipeline": "cd writein_pipeline && python main.py",
+    "build": "npm run build:website",
+    "build:website": "cd website && npm run build",
+    "start": "cd website && npm run start",
+    "install:all": "npm install && cd website && npm install && cd ../writein_pipeline && pip install -r requirements.txt",
+    "setup": "npm run install:all"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dsgolman/write-in-laws-50-states.git"
+  },
+  "keywords": [
+    "write-in",
+    "election",
+    "manifesto",
+    "political-movement",
+    "data-pipeline"
+  ],
+  "author": "DS Golman",
+  "license": "MIT"
+}

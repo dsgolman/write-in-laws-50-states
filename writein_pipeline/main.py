@@ -12,12 +12,16 @@ from datetime import date
 from writein_pipeline.io_utils import load_dataset, upsert_record, save_dataset
 from writein_pipeline.config import COLUMNS, StateRecord
 from writein_pipeline.parsers.virginia import get_record as record_virginia
+from writein_pipeline.parsers.pennsylvania import get_record as record_pennsylvania
+from writein_pipeline.parsers.new_jersey import get_record as record_new_jersey
 
 # --- Per-state record builders (add more as we go) ----------------------------
 
 # Registry of implemented states
 REGISTRY = {
     "virginia": record_virginia,
+    "pennsylvania": record_pennsylvania,
+    "new_jersey": record_new_jersey,
     # "california": record_california,  # add later
 }
 
