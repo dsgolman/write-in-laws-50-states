@@ -1,7 +1,3 @@
-Got it ✅ — here’s a polished **README.md** draft with **extra shields.io badges** to make it look like a professional open-source project *and* a campaign hub.
-
----
-
 # 🗳️ Write-In Revolution — 50-State Candidate Matrix
 
 [![CI: Lint State Dossiers & CSV](https://github.com/dsgolman/write-in-laws-50-states/actions/workflows/lint-dossiers.yml/badge.svg)](https://github.com/dsgolman/write-in-laws-50-states/actions/workflows/lint-dossiers.yml)
