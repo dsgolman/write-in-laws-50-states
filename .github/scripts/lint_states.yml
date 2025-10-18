@@ -1,0 +1,114 @@
+import sys, pathlib, re
+
+ROOT = pathlib.Path(__file__).resolve().parents[2]
+states_dir = ROOT / "data" / "states"
+
+required_top = [
+    r"^# .+ — Write-In Law Dossier\s*$",
+    r"^_Last updated:\s*\d{4}-\d{2}-\d{2}_\s*$",
+]
+
+# Required category headers (H2) in exact order
+required_h2 = [
+    r"^## Category 1: Core Legal Status\s*$",
+    r"^## Category 2: Critical Deadlines & Actions\s*$",
+    r"^## Category 3: Elector Requirements \(Presidential\)\s*$",
+    r"^## Category 4: Voter-Facing Information\s*$",
+    r"^## Category 5: Campaign Notes & Strategy\s*$",
+]
+
+# Minimal required bullet fields under each category (presence check as substring lines)
+required_fields = {
+    1: [
+        "**State:**", "**Legal Status:**", "**Official Source URL:**", "**Statute Citation:**"
+    ],
+    2: [
+        "**Filing Deadline:**", "**Filing Method:**", "**Declaration Form Name:**", "**Form URL:**", "**Filing Fee:**"
+    ],
+    3: [
+        "**Elector Slate Required:**", "**Elector Filing Deadline:**", "**Elector Form Name:**",
+        "**Number of Electors:**", "**Elector Qualifications:**"
+    ],
+    4: [
+        "**Voter Instructions:**", "**Common Pitfalls:**"
+    ],
+    5: [
+        "**Strategy Tier:**", "**Status:**", "**Internal Notes:**"
+    ],
+}
+
+def section_ranges(lines):
+    """Return dict: section_index -> (start_line, end_line_exclusive) for Category 1..5."""
+    # Find all H2 positions
+    h2_positions = []
+    for i, line in enumerate(lines):
+        if line.startswith("## Category"):
+            h2_positions.append(i)
+    ranges = {}
+    for idx, pos in enumerate(h2_positions, start=1):
+        end = h2_positions[idx] if idx < len(h2_positions) else len(lines)
+        ranges[idx] = (pos, end)
+    return ranges
+
+def check_file(path):
+    errors = []
+    text = path.read_text(encoding="utf-8").splitlines()
+
+    # Top checks
+    for pattern in required_top:
+        if not any(re.match(pattern, line) for line in text):
+            errors.append(f"- Missing required top line matching: `{pattern}`")
+
+    # H2 checks (order-sensitive: ensure each exists somewhere)
+    h2_found = []
+    for pattern in required_h2:
+        for line in text:
+            if re.match(pattern, line):
+                h2_found.append(pattern)
+                break
+        else:
+            errors.append(f"- Missing section header: `{pattern}`")
+
+    # Field checks within each section
+    ranges = section_ranges(text)
+    for sec_idx, fields in required_fields.items():
+        if sec_idx not in ranges:
+            errors.append(f"- Missing Category {sec_idx} block entirely.")
+            continue
+        start, end = ranges[sec_idx]
+        block = text[start:end]
+        for field in fields:
+            if not any(field in ln for ln in block):
+                errors.append(f"- In Category {sec_idx}, missing field: `{field}`")
+
+    return errors
+
+def main():
+    missing = {}
+    if not states_dir.exists():
+        print("No data/states directory found. Skipping.", file=sys.stderr)
+        sys.exit(1)
+
+    md_files = sorted(states_dir.glob("*.md"))
+    if not md_files:
+        print("No state dossiers found in data/states/*.md", file=sys.stderr)
+        sys.exit(1)
+
+    for md in md_files:
+        errs = check_file(md)
+        if errs:
+            missing[str(md.relative_to(ROOT))] = errs
+
+    if missing:
+        print("❌ Lint failed. Please fix the following dossiers:\n")
+        for f, errs in missing.items():
+            print(f"--- {f} ---")
+            for e in errs:
+                print(e)
+            print()
+        sys.exit(2)
+
+    print("✅ All state dossiers passed lint.")
+
+if __name__ == "__main__":
+    main()
