@@ -30,13 +30,43 @@ export function Hero() {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
-          <Button
-            size="lg"
-            variant="outline"
-            className="text-lg px-8 py-6 border-accent/30 hover:bg-accent/10 hover:text-accent-foreground bg-transparent"
+          <Link href="/pure-beachhead">
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-6 border-accent/30 hover:bg-accent/10 hover:text-accent-foreground bg-transparent"
+            >
+              Pure Beachhead Strategy
+            </Button>
+          </Link>
+          <Link href="/state-guide">
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-6 border-accent/30 hover:bg-accent/10 hover:text-accent-foreground bg-transparent"
+            >
+              50-State Guide
+            </Button>
+          </Link>
+        </div>
+
+        <div className="pt-8">
+          <p className="text-sm text-muted-foreground mb-4">
+            Stay updated with our campaign progress and strategic insights
+          </p>
+          <Link 
+            href="https://substack.com/@talkwithserenity" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block"
           >
-            Join the Movement
-          </Button>
+            <Button 
+              variant="ghost" 
+              className="text-accent hover:text-accent-foreground hover:bg-accent/10"
+            >
+              Subscribe to Newsletter →
+            </Button>
+          </Link>
         </div>
 
         <div className="pt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">

@@ -45,6 +45,16 @@ export function Footer() {
             <h4 className="font-semibold">Connect</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
+                <a 
+                  href="https://substack.com/@talkwithserenity" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-accent transition-colors"
+                >
+                  Newsletter (Substack)
+                </a>
+              </li>
+              <li>
                 <a href="#" className="hover:text-accent transition-colors">
                   Contact
                 </a>
