@@ -53,6 +53,15 @@ export function Hero() {
               Pure Beachhead Strategy
             </Button>
           </Link>
+          <Link href="/strategy">
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-6 border-accent/30 hover:bg-accent/10 hover:text-accent-foreground bg-transparent"
+            >
+              Political Strategy
+            </Button>
+          </Link>
           <Link href="/state-guide">
             <Button
               size="lg"
