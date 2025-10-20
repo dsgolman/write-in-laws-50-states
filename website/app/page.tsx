@@ -7,11 +7,13 @@ import { Footer } from "@/components/footer"
 import { GlobalPeace } from "@/components/global-peace"
 import { DeclarationOfIndependence } from "@/components/declaration-of-independence"
 import { USConstitution } from "@/components/us-constitution"
+import { CommonSenseFloor } from "@/components/common-sense-floor"
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <Hero />
+      <CommonSenseFloor />
       <Manifesto />
       <Platform />
       <GlobalPeace />
