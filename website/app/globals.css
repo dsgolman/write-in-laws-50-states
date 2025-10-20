@@ -37,6 +37,11 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  
+  /* American Flag Colors */
+  --american-red: #B22234;
+  --american-blue: #0A3161;
+  --american-white: #FFFFFF;
 }
 
 .dark {

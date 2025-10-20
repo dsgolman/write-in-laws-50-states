@@ -310,22 +310,23 @@ export default function PureBeachheadPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-red-500">
-                  <XCircle className="h-5 w-5" />
-                  Write-ins Prohibited
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {prohibitedStates.map((state) => (
-                  <div key={state.name} className="flex justify-between items-center p-3 bg-red-500/10 rounded-lg">
-                    <div>
-                      <h4 className="font-medium">{state.name}</h4>
-                      <p className="text-sm text-muted-foreground">{state.reason}</p>
-                    </div>
-                    <Badge variant="outline" className="text-red-500 border-red-500/30">
-                      {state.electoralVotes} EV
-                    </Badge>
+                <CardTitle className="flex items-center gap-2" style={{color: 'var(--american-red)'}}>
+                <XCircle className="h-5 w-5" />
+                Prohibited States
+              </CardTitle>
+              <CardDescription>States where write-in candidates are not permitted</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {prohibitedStates.map((state) => (
+                <div key={state.name} className="flex justify-between items-center p-3 rounded-lg" style={{backgroundColor: 'color-mix(in srgb, var(--american-red) 10%, transparent)'}}>
+                  <div>
+                    <div className="font-medium">{state.name}</div>
+                    <div className="text-sm text-muted-foreground">{state.reason}</div>
                   </div>
+                  <Badge variant="outline" style={{color: 'var(--american-red)', borderColor: 'color-mix(in srgb, var(--american-red) 30%, transparent)'}}>
+                    Prohibited
+                  </Badge>
+                </div>
                 ))}
               </CardContent>
             </Card>

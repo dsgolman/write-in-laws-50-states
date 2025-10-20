@@ -73,7 +73,7 @@ const getStatusIcon = (status: string) => {
     case "PRE_REGISTRATION_REQUIRED":
       return <AlertCircle className="h-4 w-4 text-yellow-500" />
     case "PROHIBITED":
-      return <XCircle className="h-4 w-4 text-red-500" />
+      return <XCircle className="h-4 w-4" style={{color: 'var(--american-red)'}} />
     default:
       return <AlertCircle className="h-4 w-4 text-gray-500" />
   }
@@ -86,7 +86,7 @@ const getStatusColor = (status: string) => {
     case "PRE_REGISTRATION_REQUIRED":
       return "text-yellow-500 border-yellow-500/30"
     case "PROHIBITED":
-      return "text-red-500 border-red-500/30"
+      return "border-2" + " " + "border-opacity-30"
     default:
       return "text-gray-500 border-gray-500/30"
   }
@@ -149,7 +149,7 @@ export default function StateGuidePage() {
             </Card>
             <Card className="text-center">
               <CardHeader>
-                <CardTitle className="text-2xl text-red-500">{prohibitedStates.length}</CardTitle>
+                <CardTitle className="text-2xl" style={{color: 'var(--american-red)'}}>{prohibitedStates.length}</CardTitle>
                 <CardDescription>Write-ins Prohibited</CardDescription>
               </CardHeader>
             </Card>
@@ -176,7 +176,7 @@ export default function StateGuidePage() {
               </Button>
             </Link>
             <Link href="#prohibited">
-              <Button variant="outline" className="text-red-500 border-red-500/30 hover:bg-red-500/10">
+              <Button variant="outline" style={{color: 'var(--american-red)', borderColor: 'color-mix(in srgb, var(--american-red) 30%, transparent)'}} className="hover:bg-red-500/10">
                 <XCircle className="mr-2 h-4 w-4" />
                 Prohibited ({prohibitedStates.length})
               </Button>
@@ -278,10 +278,10 @@ export default function StateGuidePage() {
       </section>
 
       {/* Prohibited States */}
-      <section id="prohibited" className="py-16 px-4 bg-red-500/5">
+      <section id="prohibited" className="py-16 px-4" style={{backgroundColor: 'color-mix(in srgb, var(--american-red) 5%, transparent)'}}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-red-500 mb-4">Write-ins Prohibited</h2>
+            <h2 className="text-3xl font-bold mb-4" style={{color: 'var(--american-red)'}}>Write-ins Prohibited</h2>
             <p className="text-muted-foreground">
               These states do not allow write-in votes for presidential elections.
             </p>
@@ -289,23 +289,23 @@ export default function StateGuidePage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {prohibitedStates.map((state) => (
-              <Card key={state.name} className="hover:shadow-lg transition-shadow border-red-500/20">
+              <Card key={state.name} className="hover:shadow-lg transition-shadow" style={{borderColor: 'color-mix(in srgb, var(--american-red) 20%, transparent)'}}>
                 <CardHeader className="pb-3">
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle className="text-sm flex items-center gap-2">
-                        <XCircle className="h-3 w-3 text-red-500" />
+                        <XCircle className="h-3 w-3" style={{color: 'var(--american-red)'}} />
                         {state.name}
                       </CardTitle>
                       <CardDescription className="text-xs">{state.region}</CardDescription>
                     </div>
-                    <Badge variant="outline" className="text-red-500 border-red-500/30 text-xs">
+                    <Badge variant="outline" style={{color: 'var(--american-red)', borderColor: 'color-mix(in srgb, var(--american-red) 30%, transparent)'}} className="text-xs">
                       {state.electoralVotes} EV
                     </Badge>
                   </div>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <div className="text-xs text-red-600">
+                  <div className="text-xs" style={{color: 'var(--american-red)'}}>
                     Write-ins not allowed
                   </div>
                 </CardContent>

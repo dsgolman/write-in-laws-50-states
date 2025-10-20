@@ -19,6 +19,11 @@ export function Footer() {
                 </a>
               </li>
               <li>
+                <a href="/strategy" className="hover:text-accent transition-colors">
+                  Political Strategy
+                </a>
+              </li>
+              <li>
                 <a
                   href="https://github.com/dsgolman/write-in-laws-50-states"
                   target="_blank"
