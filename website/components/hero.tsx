@@ -7,7 +7,28 @@ export function Hero() {
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden bg-[#1e1e1e]">
       <div className="absolute inset-0 bg-gradient-to-b from-[#1e1e1e] via-[#232323] to-[#282828]" />
 
-      <div className="relative z-10 max-w-6xl mx-auto text-center space-y-8">
+      {/* Anthony Boyd Execution Banner */}
+      <div className="absolute top-0 left-0 right-0 z-20 bg-red-950 border-b-2 border-red-800">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex-1">
+              <h3 className="text-lg font-bold text-white mb-2">⚖️ Statement: Anthony Boyd's Execution (October 23, 2025)</h3>
+              <p className="text-red-100 text-sm leading-relaxed">
+                Alabama executed Anthony Boyd with nitrogen gas—convicted solely on eyewitness testimony, no physical evidence. 
+                <span className="font-semibold text-white"> Capital punishment is irreversible injustice.</span> 
+                We demand reform, transparency, and the abolition of state-sanctioned killing in cases of questionable evidence.
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <a href="/manifesto" className="px-6 py-2 bg-white text-red-950 font-semibold rounded hover:bg-gray-100 transition">
+                Read Full Position
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto text-center space-y-8 mt-32">
         <div className="inline-block px-4 py-2 bg-[#444444] border border-[#555555] rounded-full text-sm text-[#e0e0e0] mb-4">
           Presidential Campaign 2028
         </div>
@@ -22,6 +43,22 @@ export function Hero() {
           The two-party system is broken. We will not fix it. We will replace it. Join the movement for a new paradigm
           of American leadership.
         </p>
+
+        {/* Primary Call-to-Action */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6 pb-4">
+          <Link href="/manifesto">
+            <Button size="lg" className="text-xl px-12 py-7 bg-accent hover:bg-accent/90 text-white font-semibold shadow-lg">
+              Start Here: Read the Manifesto
+              <ArrowRight className="ml-2 h-6 w-6" />
+            </Button>
+          </Link>
+          <Link href="/healthcare-justice">
+            <Button size="lg" className="text-xl px-12 py-7 bg-red-700 hover:bg-red-600 text-white font-semibold shadow-lg">
+              Healthcare Justice Case
+              <ArrowRight className="ml-2 h-6 w-6" />
+            </Button>
+          </Link>
+        </div>
         
         <div className="w-full max-w-3xl mx-auto mt-6">
           <iframe 
@@ -37,40 +74,28 @@ export function Hero() {
           </iframe>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-          <Link href="/manifesto">
-            <Button size="lg" className="text-lg px-8 py-6 bg-[#505050] hover:bg-[#404040] text-white">
-              Read the Manifesto
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-          <Link href="/pure-beachhead">
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 border-[#c0c0c0] hover:bg-[#e0e0e0] text-[#505050] bg-transparent"
-            >
-              Pure Beachhead Strategy
-            </Button>
-          </Link>
-          <Link href="/strategy">
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 border-accent/30 hover:bg-accent/10 hover:text-accent-foreground bg-transparent"
-            >
-              Political Strategy
-            </Button>
-          </Link>
-          <Link href="/state-guide">
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 border-[#c0c0c0] hover:bg-[#e0e0e0] text-[#505050] bg-transparent"
-            >
-              50-State Guide
-            </Button>
-          </Link>
+        {/* Secondary Links */}
+        <div className="pt-6">
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/pure-beachhead">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-[#555555] hover:bg-[#2a2a2a] text-[#c0c0c0] hover:text-[#f0f0f0] bg-transparent"
+              >
+                Pure Beachhead Strategy
+              </Button>
+            </Link>
+            <Link href="/state-guide">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-[#555555] hover:bg-[#2a2a2a] text-[#c0c0c0] hover:text-[#f0f0f0] bg-transparent"
+              >
+                50-State Guide
+              </Button>
+            </Link>
+          </div>
         </div>
 
         <div className="pt-8">
@@ -92,9 +117,7 @@ export function Hero() {
               </Button>
             </Link>
             <Link 
-              href="https://experiencing-mania-ebook.vercel.app/" 
-              target="_blank" 
-              rel="noopener noreferrer"
+              href="/experiencing-mania"
               className="inline-block"
             >
               <Button 

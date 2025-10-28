@@ -14,6 +14,16 @@ export function Footer() {
             <h4 className="font-semibold">Resources</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
+                <a href="/healthcare-justice" className="hover:text-accent transition-colors">
+                  Healthcare Justice Case
+                </a>
+              </li>
+              <li>
+                <a href="/experiencing-mania" className="hover:text-accent transition-colors">
+                  Experiencing Mania
+                </a>
+              </li>
+              <li>
                 <a href="/manifesto" className="hover:text-accent transition-colors">
                   The Manifesto
                 </a>
@@ -31,11 +41,6 @@ export function Footer() {
                   className="hover:text-accent transition-colors"
                 >
                   State-by-State Guide
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-accent transition-colors">
-                  Legal Framework
                 </a>
               </li>
               <li>

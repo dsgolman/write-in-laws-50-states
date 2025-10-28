@@ -10,7 +10,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Write-In Revolution 2028 | A New Political Movement",
   description:
-    "Don't Vote. Write-In. Join the movement to replace the two-party system with a new paradigm of leadership.",
+    "Don't Vote. Write-In. Join the movement to replace the two-party system with a new paradigm of leadership. Fighting for healthcare justice, transparency, and systemic reform.",
   generator: "v0.app",
 }
 
